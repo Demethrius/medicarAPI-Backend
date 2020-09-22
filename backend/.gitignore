@@ -1,0 +1,10 @@
+env/
+
+medicarAPI/__pycache__
+medicarAPI/.env
+
+user/__pycache__
+user/migrations/__pycache__
+
+core/__pycache__
+core/migrations/__pycache__
