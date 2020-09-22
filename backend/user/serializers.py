@@ -15,6 +15,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields=['username', 'first_name', 'last_name', 'email', 'password', 'cliente', 'gestor']
 
+    def __init__(self, *args, **kwargs):
+        super(UserSerializer, self).__init__(*args, **kwargs)
+        self.fields["username"].error_messages["required"] = "Por favor, informe o usuário!"
+        self.fields["password"].error_messages["required"] = "Por favor, informe a senha!"
+        self.fields["email"].error_messages["required"] = "Por favor, informe o e-mail!"
+        self.fields["first_name"].error_messages["required"] = "Por favor, informe o primeiro nome!"
+        self.fields["last_name"].error_messages["required"] = "Por favor, informe o último nome!"
+
     # Validação de cadastro -> email duplicado
     def validate(self, attrs):
         email = attrs.get('email', '')
