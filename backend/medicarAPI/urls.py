@@ -16,8 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework_jwt.views import obtain_jwt_token
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/auth/', include('user.urls')),
+    path('api-auth/', include('rest_framework.urls')),                 # Rota de login/logout no DRF
+    path('api/token', obtain_jwt_token, name='obtain_jwt_token'),      # Rota de autenticação / JWT
+
+    path('api/', include('core.urls')),                                # Rotas da app Core
+    path('api/auth/', include('user.urls')),                           # Rotas da app User
 ]
