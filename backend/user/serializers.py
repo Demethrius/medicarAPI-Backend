@@ -9,11 +9,10 @@ class UserSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(max_length=100, min_length=1)
     last_name = serializers.CharField(max_length=100, min_length=1)
     cliente = serializers.BooleanField(default=False, write_only=True)  # Flag para Cliente
-    gestor = serializers.BooleanField(default=False, write_only=True)   # Flag para Gestor
 
     class Meta:
         model = User
-        fields=['username', 'first_name', 'last_name', 'email', 'password', 'cliente', 'gestor']
+        fields=['username', 'first_name', 'last_name', 'email', 'password', 'cliente']
 
     def __init__(self, *args, **kwargs):
         super(UserSerializer, self).__init__(*args, **kwargs)

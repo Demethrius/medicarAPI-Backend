@@ -20,8 +20,8 @@ class Especialidade(models.Model):
 class Medico(models.Model):
     nome = models.CharField(max_length=250)
     crm = models.CharField(max_length=50)
-    email = models.EmailField(max_length=250)
-    telefone = models.CharField(max_length=15)
+    email = models.EmailField(max_length=250, null=True, blank=True)
+    telefone = models.CharField(max_length=15, null=True, blank=True)
     especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE, related_name='medico')
 
     criado_em = models.DateTimeField(auto_now_add=True)
@@ -52,7 +52,7 @@ class Horario(models.Model):
 class Agenda(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='agenda')
     dia = models.DateField()
-    horarios = models.ManyToManyField(Horario, related_name='agenda')
+    horarios = models.ManyToManyField(Horario, related_name='horarios')
 
     class Meta:
         verbose_name="Agenda"
@@ -68,7 +68,7 @@ class Consulta(models.Model):
     data = models.DateField()
     horario = models.TimeField()
     data_agendamento = models.DateTimeField(auto_now_add=True)
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='consulta')
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='consultas')
 
     class Meta:
         verbose_name="Consulta"

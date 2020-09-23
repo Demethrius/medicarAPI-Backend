@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     cliente = models.BooleanField(default=False)
-    gestor = models.BooleanField(default=False)
 
     class Meta:
         verbose_name="Usuário"
