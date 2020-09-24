@@ -1,4 +1,8 @@
+import datetime
+
 from django.db import models
+from django import forms
+
 from user.models import User
 
 # Create your models here.
@@ -57,7 +61,13 @@ class Agenda(models.Model):
     class Meta:
         verbose_name="Agenda"
         verbose_name_plural="Agendas"
+        unique_together=['dia', 'medico'] # Não permitir criar uma agenda no mesmo dia para o mesmo médico
         ordering=['id']
+
+    def clean(self): # Não permitir criar uma agenda para data passada
+        if self.dia < datetime.date.today():
+            raise forms.ValidationError("Por favor selecione uma data válida!") 
+        return self.dia
 
     def __str__(self):
         return f'Médico: {self.medico} - Dia: {self.dia}'
