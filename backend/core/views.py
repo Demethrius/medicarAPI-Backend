@@ -25,7 +25,23 @@ class MedicoCreate(generics.ListAPIView):
 
     serializer_class = MedicoSerializer
     permission_classes=[IsAuthenticated]
-    queryset = Medico.objects.all()
+
+    #Filtragem por nome da especialidade e nome do médico
+    def get_queryset(self):
+        queryset = Medico.objects.all()
+
+        nome = self.request.query_params.get('search', None)
+        especialidade = self.request.query_params.get('especialidade', None)
+
+        if nome is not None:
+            queryset = Medico.objects.filter(nome=nome)
+            return queryset
+
+        if especialidade is not None:
+            queryset = Medico.objects.filter(especialidade__nome=especialidade)
+            return queryset
+
+        return queryset
 
 
 class HorarioCreate(generics.ListAPIView):
