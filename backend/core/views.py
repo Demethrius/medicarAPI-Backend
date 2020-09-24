@@ -55,7 +55,29 @@ class AgendaCreate(generics.ListAPIView):
 
     serializer_class = AgendaSerializer
     permission_classes=[IsAuthenticated]
-    queryset = Agenda.objects.all()
+
+    #Filtragem por nome da especialidade e nome do médico e intervalo de datas
+    def get_queryset(self):
+        queryset = Agenda.objects.exclude(dia__lt=datetime.date.today()) # Não exibir datas passadas
+
+        nome = self.request.query_params.get('search', None)
+        especialidade = self.request.query_params.get('especialidade', None)
+        data_inicio = self.request.query_params.get('data_inicio', None)
+        data_final = self.request.query_params.get('data_final', None)
+
+        if nome is not None:
+            queryset = Agenda.objects.filter(medico__nome=nome)
+            return queryset
+
+        if especialidade is not None:
+            queryset = Agenda.objects.filter(medico__especialidade__nome=especialidade)
+            return queryset
+
+        if data_final and data_inicio is not None:
+            queryset = Agenda.objects.filter(dia__gte=data_inicio, dia__lte=data_final)
+            return queryset
+
+        return queryset
 
 
 class ConsultaCreate(generics.ListAPIView):
@@ -63,6 +85,7 @@ class ConsultaCreate(generics.ListAPIView):
     serializer_class = ConsultaSerializer
     permission_classes=[IsAuthenticated]
 
+    # Filtragem não exibe datas de consultas anteriores ao dia atual
     def get_queryset(self):
-        queryset=Consulta.objects.filter(user=self.request.user)
+        queryset=Consulta.objects.filter(user=self.request.user).exclude(data__lt=datetime.date.today())
         return queryset

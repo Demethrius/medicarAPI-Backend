@@ -62,7 +62,7 @@ class Agenda(models.Model):
         verbose_name="Agenda"
         verbose_name_plural="Agendas"
         unique_together=['dia', 'medico'] # Não permitir criar uma agenda no mesmo dia para o mesmo médico
-        ordering=['id']
+        ordering=['dia'] # Listagem de agenda deve ordenar por ordem crescente de data
 
     def clean(self): # Não permitir criar uma agenda para data passada
         if self.dia < datetime.date.today():
@@ -83,7 +83,7 @@ class Consulta(models.Model):
     class Meta:
         verbose_name="Consulta"
         verbose_name_plural="Consultas"
-        ordering=['id']
+        ordering=['data', 'horario'] # Listagem de consultas deve ordernar pela data e pelo horário
         unique_together=['data', 'horario', 'medico']
 
     def __str__(self):

@@ -3,14 +3,6 @@ from rest_framework.serializers import ModelSerializer
 
 from core.models import *
 
-
-class AgendaSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Agenda
-        fields = '__all__'
-
-
 class EspecialidadeSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -29,11 +21,19 @@ class MedicoSerializer(serializers.ModelSerializer):
 
 class HorarioSerializer(serializers.ModelSerializer):
 
-    hora = AgendaSerializer(many=True, read_only=True)
-
     class Meta:
         model = Horario
         fields = ['horario',]
+
+
+class AgendaSerializer(serializers.ModelSerializer):
+
+    medico = MedicoSerializer(read_only=True)
+    horarios = HorarioSerializer(many=True,read_only=True)
+
+    class Meta:
+        model = Agenda
+        fields = '__all__'
 
 
 class ConsultaSerializer(serializers.ModelSerializer):
