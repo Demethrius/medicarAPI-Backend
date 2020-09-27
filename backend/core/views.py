@@ -101,7 +101,9 @@ class ConsultaDelete(generics.DestroyAPIView):
     serializer_class = ConsultaSerializer
     permission_classes=[IsAuthenticated]
 
+    # Não deve ser possível desmarcar uma consulta que já aconteceu,
+    # e não deve ser possível desmarcar uma consulta que não foi marcada pelo usuário logado
     def get_queryset(self):
-        queryset=Consulta.objects.filter(user=self.request.user)
+        queryset=Consulta.objects.filter(user=self.request.user).exclude(data__lt=datetime.date.today())
         return queryset
 

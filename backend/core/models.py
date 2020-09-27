@@ -86,5 +86,5 @@ class Consulta(models.Model):
         unique_together=['data', 'horario', 'agenda']
 
     def __str__(self):
-        return f'Dia: {self.data} - Horário: {self.horario} / Médico: {self.medico}'
+        return f'Dia: {self.data} - Horário: {self.horario}'
 

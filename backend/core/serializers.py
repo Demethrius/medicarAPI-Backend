@@ -42,7 +42,6 @@ class ConsultaSerializer(serializers.ModelSerializer):
         model = Consulta
         extra_kwargs={
             'data':{'read_only': True},
-            'agenda.horarios':{'exclude': True},
         }
         exclude = ['user']
 
