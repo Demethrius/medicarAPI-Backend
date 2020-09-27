@@ -80,7 +80,7 @@ class AgendaCreate(generics.ListAPIView):
         return queryset
 
 
-class ConsultaCreate(generics.ListAPIView):
+class ConsultaCreate(generics.ListCreateAPIView):
 
     serializer_class = ConsultaSerializer
     permission_classes=[IsAuthenticated]
@@ -89,3 +89,19 @@ class ConsultaCreate(generics.ListAPIView):
     def get_queryset(self):
         queryset=Consulta.objects.filter(user=self.request.user).exclude(data__lt=datetime.date.today())
         return queryset
+
+    # Pegar usuário que está fazendo a requisição
+    def perform_create(self, serializer):
+        dia = serializer.validated_data.get('agenda').dia
+        serializer.save(user=self.request.user, data=dia)
+
+
+class ConsultaDelete(generics.DestroyAPIView):
+    
+    serializer_class = ConsultaSerializer
+    permission_classes=[IsAuthenticated]
+
+    def get_queryset(self):
+        queryset=Consulta.objects.filter(user=self.request.user)
+        return queryset
+

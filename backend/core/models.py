@@ -5,7 +5,6 @@ from django import forms
 
 from user.models import User
 
-# Create your models here.
 class Especialidade(models.Model):
     nome = models.CharField(max_length=250, unique=True)
 
@@ -75,16 +74,16 @@ class Agenda(models.Model):
 
 class Consulta(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = models.DateField()
+    data = models.DateField(null=True)
     horario = models.TimeField()
     data_agendamento = models.DateTimeField(auto_now_add=True)
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='consultas')
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, related_name='consultas', default=1)
 
     class Meta:
         verbose_name="Consulta"
         verbose_name_plural="Consultas"
         ordering=['data', 'horario'] # Listagem de consultas deve ordernar pela data e pelo horário
-        unique_together=['data', 'horario', 'medico']
+        unique_together=['data', 'horario', 'agenda']
 
     def __str__(self):
         return f'Dia: {self.data} - Horário: {self.horario} / Médico: {self.medico}'

@@ -38,9 +38,11 @@ class AgendaSerializer(serializers.ModelSerializer):
 
 class ConsultaSerializer(serializers.ModelSerializer):
 
-    medico = MedicoSerializer(read_only=True)
-
     class Meta:
         model = Consulta
-        fields = '__all__'
+        extra_kwargs={
+            'data':{'read_only': True},
+            'agenda.horarios':{'exclude': True},
+        }
+        exclude = ['user']
 
