@@ -113,7 +113,7 @@ body: "agenda", "horario"
 - Consultas Delete (DELETE)
 ```bash
 url: localhost:8000/api/consultas/"id"
-``
+```
 
 
 - Agendas List (GET)
