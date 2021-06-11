@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
+    <title>Registrar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item logo">
+            <img src="assets/logo.png" height="75">
+        </div>
+        <div class="grid-item container">
+            <h2>Registrar</h2>
+            <form action="">
+                <div class="input-field">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" name="nome" id="nome">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <label for="gender">Gênero</label>
+                    <div class="radio-btn" style="margin-top: 6px;">
+                        <div style="display:flex;">
+                            <label for="male">
+                                <input type="radio" name="gender" id="male" value="male">
+                                <span>Homem</span>
+                            </label>
+                        </div>
+                        <div style="display:flex;">
+                            <label for="female">
+                                <input type="radio" name="gender" id="female" value="female">
+                                <span>Mulher</span>
+                            </label>
+                        </div>
+                        <div style="display:flex;">
+                            <label for="other">
+                                <input type="radio" name="gender" id="other" value="other">
+                                <span>Outro</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="nome">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" id="password">
+                    <div class="underline"></div>
+                </div>
+                
+    
+                <input type="submit" value="Cadastre-se">
+            </form>
+            <div class="register">
+                <a href="../login/index.html">Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
